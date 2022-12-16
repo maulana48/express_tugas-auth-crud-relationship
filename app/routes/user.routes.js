@@ -12,7 +12,18 @@ module.exports = function (app) {
         next();
     });
 
-    app.get("/api/test/all", controller.allAccess);
+    // user
+    app.get("/api/user/all", [authJwt.verifyToken, authJwt.isAdmin], controller.getAll);
+
+    app.get('/api/user/:id', [authJwt.verifyToken, authJwt.isAdmin], controller.getUser);
+
+    app.post('/api/user/update/:id', [authJwt.verifyToken, authJwt.isAdmin], controller.updateUser);
+
+    app.post('/api/user/:id', [authJwt.verifyToken, authJwt.isAdmin], controller.deleteUser);
+
+
+    // test
+    app.get("/api/test/all", [authJwt.verifyToken, authJwt.isAdmin], controller.allAccess);
 
     app.get(
         "/api/test/user",

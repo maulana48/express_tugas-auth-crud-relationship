@@ -13,6 +13,9 @@ exports.signup = (req, res) => {
     User.create({
             username: req.body.username,
             email: req.body.email,
+            alamat: req.body.alamat,
+            gender: req.body.gender,
+            tanggal_lahir: req.body.tanggal_lahir,
             password: bcrypt.hashSync(req.body.password, 8)
         })
         .then(user => {
