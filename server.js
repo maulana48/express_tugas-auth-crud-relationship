@@ -7,6 +7,7 @@ const app = express();
 const db = require("./app/models");
 const Role = db.role;
 
+const seed = require("./app/seed/user.seed");
 
 var corsOptions = {
     origin: "http://localhost:3001"
@@ -38,6 +39,7 @@ db.sequelize.sync({
 }).then(() => {
     console.log('Drop and Resync Db');
     initial();
+    seed.seed();
 });
 
 function initial() {
@@ -56,6 +58,8 @@ function initial() {
         name: "admin"
     });
 }
+
+
 // routes
 require('./app/routes/auth.routes')(app);
 require('./app/routes/user.routes')(app);
