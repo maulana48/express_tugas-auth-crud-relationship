@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "test1": "node ./node_modules/nodemon/bin/nodemon.js server.js"
+    "test1": "nodemon server.js"
   },
   "keywords": [
     "node",
@@ -23,9 +23,12 @@
     "cors": "^2.8.5",
     "express": "^4.18.2",
     "jsonwebtoken": "^8.5.1",
+    "multer": "^1.4.5-lts.1",
     "pg": "^8.8.0",
     "pg-hstore": "^2.3.4",
-    "sequelize": "^6.27.0"
+    "sequelize": "^6.27.0",
+    "swagger-jsdoc": "^6.2.7",
+    "swagger-ui-express": "^4.6.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.20"

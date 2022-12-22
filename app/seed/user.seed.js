@@ -14,7 +14,7 @@ exports.seed = () => {
         tanggal_lahir: '2022-01-05',
         password: bcrypt.hashSync("test")
     }).then(user => {
-        user.setRoles([1]);
+        user.setRoles([3]);
     });
 
     User.create({
@@ -35,6 +35,26 @@ exports.seed = () => {
         tanggal_lahir: '2000-09-02',
         password: bcrypt.hashSync("test2")
     }).then(user => {
-        user.setRoles([3]);
+        user.setRoles([4]);
+    });
+    User.create({
+        username: "test3",
+        email: "test3@gmail.com",
+        alamat: "test3",
+        gender: "test3",
+        tanggal_lahir: '2000-09-02',
+        password: bcrypt.hashSync("test3")
+    }).then(user => {
+        user.setRoles([4]);
+    });
+    User.create({
+        username: "test4",
+        email: "test4@gmail.com",
+        alamat: "test4",
+        gender: "test4",
+        tanggal_lahir: '2000-09-02',
+        password: bcrypt.hashSync("test4")
+    }).then(user => {
+        user.setRoles([4]);
     });
 };
