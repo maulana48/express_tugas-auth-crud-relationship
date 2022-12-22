@@ -36,7 +36,7 @@ exports.updateUser = async (req, res) => {
 
 exports.deleteUser = async (req, res) => {
     let id = req.params.id
-    let user = await User.destroy(req.body, {
+    let user = await User.destroy({
         where: {
             id: id
         }

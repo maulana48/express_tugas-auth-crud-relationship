@@ -42,7 +42,8 @@ db.user.belongsToMany(db.role, {
 
 db.user.hasMany(db.order, {
     as: 'Customer',
-    foreignKey: 'customerId'
+    foreignKey: 'customerId',
+    onDelete: 'CASCADE'
 });
 db.order.belongsTo(db.user, {
     as: 'Customer',
@@ -52,12 +53,14 @@ db.order.belongsTo(db.user, {
 db.product.belongsToMany(db.order, {
     through: "product_ordered",
     foreignKey: "productId",
-    otherKey: "orderId"
+    otherKey: "orderId",
+    onDelete: 'cASCADE'
 });
 db.order.belongsToMany(db.product, {
     through: "product_ordered",
     foreignKey: "orderId",
-    otherKey: "productId"
+    otherKey: "productId",
+    onDelete: 'CASCADE'
 });
 
 db.ROLES = ["user", "admin", "moderator"];

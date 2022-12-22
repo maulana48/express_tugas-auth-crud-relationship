@@ -36,7 +36,7 @@ exports.updateProduct = async (req, res) => {
 
 exports.deleteProduct = async (req, res) => {
     let id = req.params.id
-    let product = await Product.destroy(req.body, {
+    let product = await Product.destroy({
         where: {
             id: id
         }
