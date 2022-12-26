@@ -46,7 +46,7 @@ db.user.hasMany(db.order, {
     onDelete: 'CASCADE'
 });
 db.order.belongsTo(db.user, {
-    as: 'Customer',
+    as: 'Customer',	// coe iki ora perlu?
     foreignKey: 'customerId'
 });
 
@@ -54,7 +54,7 @@ db.product.belongsToMany(db.order, {
     through: "product_ordered",
     foreignKey: "productId",
     otherKey: "orderId",
-    onDelete: 'cASCADE'
+    onDelete: 'CASCADE'
 });
 db.order.belongsToMany(db.product, {
     through: "product_ordered",

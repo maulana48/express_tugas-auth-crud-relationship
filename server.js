@@ -37,6 +37,13 @@ app.get("/", (req, res) => {
         message: "Welcome to bezkoder application."
     });
 });
+app.get("/seeders", (req, res) => {
+    let test = seed.seed();
+    res.json({
+        data: test,
+        message: "Seeding database complete!"
+    });
+});
 
 
 
@@ -47,7 +54,6 @@ db.sequelize.sync({
 }).then(() => {
     console.log('Drop and Resync Db');
     initial();
-    seed.seed();
 });
 
 function initial() {
