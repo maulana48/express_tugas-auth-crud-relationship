@@ -1,67 +1,37 @@
-const config = require("../config/db.config.js");
+'use strict';
 
-const Sequelize = require("sequelize");
-const sequelize = new Sequelize(
-    config.DB,
-    config.USER,
-    config.PASSWORD, {
-        host: config.HOST,
-        dialect: config.dialect,
-        operatorsAliases: false,
-        port: 5432,
-
-        pool: {
-            max: config.pool.max,
-            min: config.pool.min,
-            acquire: config.pool.acquire,
-            idle: config.pool.idle
-        }
-    }
-);
-
+const fs = require('fs');
+const path = require('path');
+const Sequelize = require('sequelize');
+const process = require('process');
+const basename = path.basename(__filename);
+const env = process.env.NODE_ENV || 'development';
+const config = require(__dirname + '/../config/db.config.js')[env];
 const db = {};
 
-db.Sequelize = Sequelize;
+let sequelize;
+if (config.use_env_variable || true) {
+    sequelize = new Sequelize(config.database, config.username, config.password, config);
+}
+
+fs
+    .readdirSync(__dirname)
+    .filter(file => {
+        return (file.indexOf('.') !== 0) && (file !== basename) && (file.slice(-3) === '.js');
+    })
+    .forEach(file => {
+        const model = require(path.join(__dirname, file))(sequelize, Sequelize.DataTypes);
+        db[model.name] = model;
+    });
+
+Object.keys(db).forEach(modelName => {
+    if (db[modelName].associate) {
+        db[modelName].associate(db);
+    }
+});
+
 db.sequelize = sequelize;
-
-db.user = require("../models/user.model.js")(sequelize, Sequelize);
-db.role = require("../models/role.model.js")(sequelize, Sequelize);
-db.product = require("../models/product.model.js")(sequelize, Sequelize);
-db.order = require("../models/order.model.js")(sequelize, Sequelize);
-
-db.role.belongsToMany(db.user, {
-    through: "user_roles",
-    foreignKey: "roleId",
-    otherKey: "userId"
-});
-db.user.belongsToMany(db.role, {
-    through: "user_roles",
-    foreignKey: "userId",
-    otherKey: "roleId"
-});
-
-db.user.hasMany(db.order, {
-    as: 'Customer',
-    foreignKey: 'customerId',
-    onDelete: 'CASCADE'
-});
-db.order.belongsTo(db.user, {
-    as: 'Customer',	// coe iki ora perlu?
-    foreignKey: 'customerId'
-});
-
-db.product.belongsToMany(db.order, {
-    through: "product_ordered",
-    foreignKey: "productId",
-    otherKey: "orderId",
-    onDelete: 'CASCADE'
-});
-db.order.belongsToMany(db.product, {
-    through: "product_ordered",
-    foreignKey: "orderId",
-    otherKey: "productId",
-    onDelete: 'CASCADE'
-});
+db.Sequelize = Sequelize;
 
 db.ROLES = ["user", "admin", "moderator"];
 

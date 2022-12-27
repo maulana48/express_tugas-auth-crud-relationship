@@ -49,34 +49,12 @@ app.get("/seeders", (req, res) => {
 
 
 // untuk prod : db.sequelize.sync();
-db.sequelize.sync({
-    force: true
-}).then(() => {
-    console.log('Drop and Resync Db');
-    initial();
-});
-
-function initial() {
-    Role.create({
-        id: 1,
-        name: "user"
-    });
-
-    Role.create({
-        id: 2,
-        name: "moderator"
-    });
-
-    Role.create({
-        id: 3,
-        name: "admin"
-    });
-
-    Role.create({
-        id: 4,
-        name: "customer"
-    });
-}
+// db.sequelize.sync({
+//     force: true
+// }).then(() => {
+//     console.log('Drop and Resync Db');
+//     initial();
+// });
 
 
 // routes

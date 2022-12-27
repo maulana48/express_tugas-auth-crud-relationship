@@ -1,5 +1,5 @@
 const db = require('../models')
-const User = db.user
+const User = db.User
 
 exports.allAccess = (req, res) => {
     res.status(200).send("Public Content.");

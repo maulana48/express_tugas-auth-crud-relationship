@@ -1,7 +1,7 @@
 const db = require("../models");
 const Product = db.product;
 const Order = db.order;
-const User = db.user;
+const User = db.User;
 
 exports.seed = () => {
     // Save User to Database
