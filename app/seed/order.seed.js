@@ -1,6 +1,6 @@
 const db = require("../models");
-const Product = db.product;
-const Order = db.order;
+const Product = db.Product;
+const Order = db.Order;
 const User = db.User;
 
 exports.seed = () => {

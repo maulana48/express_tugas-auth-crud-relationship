@@ -1,5 +1,5 @@
 const db = require("../models");
-const Product = db.product;
+const Product = db.Product;
 
 exports.seed = () => {
     // Save User to Database
